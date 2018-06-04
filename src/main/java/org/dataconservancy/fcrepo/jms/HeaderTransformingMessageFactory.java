@@ -57,6 +57,7 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
      */
     @Override
     public Message getMessage(FedoraEvent event, Session jmsSession) throws JMSException {
+        LOG.debug(">>>> Generating JMS for resource {}", event.getPath());
         Message message = super.getMessage(event, jmsSession);
 
         Enumeration propertyNames = message.getPropertyNames();
