@@ -57,6 +57,7 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
      */
     @Override
     public Message getMessage(FedoraEvent event, Session jmsSession) throws JMSException {
+        LOG.debug(">>>> Generating JMS for resource {}", event.getPath());
         Message message = super.getMessage(event, jmsSession);
 
         Enumeration propertyNames = message.getPropertyNames();
@@ -75,11 +76,11 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
                 try {
                     String transformedProp = transform(propStr);
                     String value = message.getStringProperty((String) propObj);
-                    LOG.debug(">>>> Adding JMS header '{}', with value '{}' to message {}",
+                    LOG.trace(">>>> Adding JMS header '{}', with value '{}' to message {}",
                             transformedProp, value, message);
                     message.setStringProperty(transformedProp, value);
                 } catch (Exception e) {
-                    LOG.error("Error transforming property name {} to a String value: {}", propObj, e.getMessage(), e);
+                    LOG.warn("Error transforming property name {} to a String value: {}", propObj, e.getMessage(), e);
                 }
             }
 
