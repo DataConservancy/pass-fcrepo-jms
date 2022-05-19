@@ -15,11 +15,11 @@
  */
 package org.dataconservancy.fcrepo.jms;
 
+import static org.dataconservancy.fcrepo.jms.HeaderTransformingMessageFactory.transform;
+import static org.junit.Assert.assertEquals;
+
 import org.fcrepo.jms.DefaultMessageFactory;
 import org.junit.Test;
-
-import static org.dataconservancy.fcrepo.jms.HeaderTransformingMessageFactory.transform;
-import static org.junit.Assert.*;
 
 /**
  * @author Elliot Metsger (emetsger@jhu.edu)

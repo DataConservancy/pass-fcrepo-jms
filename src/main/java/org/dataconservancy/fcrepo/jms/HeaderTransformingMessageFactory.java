@@ -15,16 +15,16 @@
  */
 package org.dataconservancy.fcrepo.jms;
 
+import java.util.Enumeration;
+import java.util.stream.Collectors;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+
 import org.fcrepo.jms.DefaultMessageFactory;
 import org.fcrepo.kernel.api.observer.FedoraEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
-import java.util.Enumeration;
-import java.util.stream.Collectors;
 
 /**
  * Provides JMS headers that can be used as {@link Message} selectors.
@@ -50,7 +50,7 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
      * with a copy of the original value.  Receivers, if they are aware of the transformation algorithm, can use the
      * transformed version of the property name as a {@code Message} selector.
      *
-     * @param event the Fedora event
+     * @param event      the Fedora event
      * @param jmsSession the current JMS Session
      * @return a {@code Message} that may carry additional properties viable for {@code Message} selection
      * @throws JMSException
@@ -68,7 +68,7 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
                 continue;
             }
 
-            String propStr = (String)propObj;
+            String propStr = (String) propObj;
 
             // TODO fully validate property names
             if (propStr.contains(".")) {
@@ -77,7 +77,7 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
                     String transformedProp = transform(propStr);
                     String value = message.getStringProperty((String) propObj);
                     LOG.debug(">>>> Adding JMS header '{}', with value '{}' to message {}",
-                            transformedProp, value, message);
+                              transformedProp, value, message);
                     message.setStringProperty(transformedProp, value);
                 } catch (Exception e) {
                     LOG.error("Error transforming property name {} to a String value: {}", propObj, e.getMessage(), e);
@@ -92,13 +92,16 @@ public class HeaderTransformingMessageFactory extends DefaultMessageFactory {
     /**
      * Transforms the supplied property name by examining each character of the name in sequence, and:
      * <ol>
-     *     <li>If the first character is not a {@link Character#isJavaIdentifierStart(char)}, drop characters until one is found.</li>
+     *     <li>If the first character is not a {@link Character#isJavaIdentifierStart(char)}, drop characters until
+     *     one is found.</li>
      *     <li>If subsequent characters are not a {@link Character#isJavaIdentifierPart(char)}, drop them.</li>
-     *     <li>If a character is dropped, and a valid first character has been found, uppercase the next valid character</li>
+     *     <li>If a character is dropped, and a valid first character has been found, uppercase the next valid
+     *     character</li>
      * </ol>
      *
      * @param propertyName the JMS property name that may not viable for use as a {@code Message} selector
-     * @return the transformed property name, which may be unchanged if the supplied name was viable as a {@code Message} selector
+     * @return the transformed property name, which may be unchanged if the supplied name was viable as a {@code
+     * Message} selector
      */
     static String transform(String propertyName) {
         final byte[] first = {0x01};
