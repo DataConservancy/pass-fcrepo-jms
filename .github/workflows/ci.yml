@@ -14,14 +14,14 @@ jobs:
 
   call-workaround:
     name: Run Parent POM Workaround
-    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/parent-pom-workaround.yml@main
+    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/parent-pom-workaround.yml@master
   
   call-tests-unit:
     name: Run Unit Tests
-    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/tests-unit.yml@main
+    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/tests-unit.yml@master
     needs: call-workaround
     
   call-tests-integration:
     name: Run Integration Tests
-    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/tests-integration.yml@main
+    uses: eclipse-pass/pass-fcrepo-jms/.github/workflows/tests-integration.yml@master
     needs: call-workaround
