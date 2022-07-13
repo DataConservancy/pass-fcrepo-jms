@@ -15,7 +15,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
     <fcrepo.version>4.7.5</fcrepo.version>
     <junit.version>4.12</junit.version>
   </properties>
@@ -34,12 +33,6 @@
     </dependency>
   </dependencies>
 
-  <!--distributionManagement>
-    <snapshotRepository>
-      <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-    </snapshotRepository>
-  </distributionManagement-->
   <repositories>
     <repository>
       <id>sonatype-nexus-snapshots</id>
