@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Provides JMS headers that can be used as {@link Message} selectors.
- * <h4>Limitations</h4>
+ * Limitations
  * <ul>
  *     <li>Only property names containing a period (0x2e) are considered for transformation</li>
  *     <li>Technically, a property name cannot be used as a selector if the name does not start with a valid
